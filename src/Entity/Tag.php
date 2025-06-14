@@ -2,12 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\TagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
+#[ApiResource(
+    description: 'Tags provide a flexible way to annotate notes with keywords or themes. Unlike categories, a note can have multiple tags.'
+)]
 class Tag
 {
     #[ORM\Id]

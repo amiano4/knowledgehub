@@ -2,12 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\NoteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NoteRepository::class)]
+#[ApiResource(
+    description: 'A note is a piece of user-generated content, often used for jotting down thoughts, tasks, or information. Notes may contain text, tags, attachments, and belong to a category.'
+)]
 class Note
 {
     #[ORM\Id]
