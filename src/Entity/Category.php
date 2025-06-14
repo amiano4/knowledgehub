@@ -9,7 +9,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\Slug;
 use Gedmo\Mapping\Annotation\Timestampable;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity('slug')]
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ApiResource(
     description: 'A category is a label used to group related notes. It helps organize content by topic, context, or user-defined themes.'
@@ -41,7 +43,7 @@ class Category
     #[ORM\OneToMany(targetEntity: Note::class, mappedBy: 'category')]
     private Collection $notes;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(unique: true)]
     #[Slug(fields: ['name'])]
     private ?string $slug = null;
 

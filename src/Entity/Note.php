@@ -9,7 +9,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\Slug;
 use Gedmo\Mapping\Annotation\Timestampable;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity('slug')]
 #[ORM\Entity(repositoryClass: NoteRepository::class)]
 #[ApiResource(
     description: 'A note is a piece of user-generated content, often used for jotting down thoughts, tasks, or information. Notes may contain text, tags, attachments, and belong to a category.'
@@ -44,7 +46,7 @@ class Note
     #[Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(unique: true)]
     #[Slug(fields: ['title'])]
     private ?string $slug = null;
 

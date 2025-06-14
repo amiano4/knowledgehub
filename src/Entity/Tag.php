@@ -9,7 +9,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\Slug;
 use Gedmo\Mapping\Annotation\Timestampable;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity('slug')]
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 #[ApiResource(
     description: 'Tags provide a flexible way to annotate notes with keywords or themes. Unlike categories, a note can have multiple tags.'
@@ -38,7 +40,7 @@ class Tag
     #[ORM\ManyToMany(targetEntity: Note::class, mappedBy: 'tags')]
     private Collection $notes;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(unique: true)]
     #[Slug(fields: ['name'])]
     private ?string $slug = null;
 
