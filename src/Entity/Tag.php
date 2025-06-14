@@ -7,6 +7,8 @@ use App\Repository\TagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Slug;
+use Gedmo\Mapping\Annotation\Timestampable;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 #[ApiResource(
@@ -23,9 +25,11 @@ class Tag
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
+    #[Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
 
     /**
@@ -33,6 +37,10 @@ class Tag
      */
     #[ORM\ManyToMany(targetEntity: Note::class, mappedBy: 'tags')]
     private Collection $notes;
+
+    #[ORM\Column(nullable: true)]
+    #[Slug(fields: ['name'])]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -103,6 +111,18 @@ class Tag
         if ($this->notes->removeElement($note)) {
             $note->removeTag($this);
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }
