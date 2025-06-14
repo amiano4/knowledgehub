@@ -32,8 +32,12 @@ final class NoteFactory extends PersistentProxyObjectFactory
         return [
             'title' => self::faker()->text(15),
             'content' => self::faker()->text(),
-            'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
-            'updatedAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
+            'createdAt' => \DateTimeImmutable::createFromMutable(
+                self::faker()->dateTimeBetween('-6 months', 'now')
+            ),
+            'updatedAt' => \DateTimeImmutable::createFromMutable(
+                self::faker()->dateTimeBetween('-6 months', 'now')
+            ),
         ];
     }
 

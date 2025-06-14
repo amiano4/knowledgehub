@@ -30,10 +30,14 @@ final class CategoryFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
+            'createdAt' => \DateTimeImmutable::createFromMutable(
+                self::faker()->dateTimeBetween('-6 months', 'now')
+            ),
             'description' => self::faker()->text(),
             'name' => self::faker()->text(12),
-            'updateAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
+            'updateAt' => \DateTimeImmutable::createFromMutable(
+                self::faker()->dateTimeBetween('-6 months', 'now')
+            ),
         ];
     }
 

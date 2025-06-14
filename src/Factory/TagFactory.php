@@ -30,9 +30,13 @@ final class TagFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
+            'createdAt' => \DateTimeImmutable::createFromMutable(
+                self::faker()->dateTimeBetween('-6 months', 'now')
+            ),
             'name' => self::faker()->text(6),
-            'updatedAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
+            'updatedAt' => \DateTimeImmutable::createFromMutable(
+                self::faker()->dateTimeBetween('-6 months', 'now')
+            ),
         ];
     }
 

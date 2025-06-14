@@ -19,7 +19,7 @@ class DummyDataFixtures extends Fixture
         TagFactory::createMany(20);
 
         // Create 10 notes
-        NoteFactory::createMany(10, function () {
+        NoteFactory::createMany(25, function () {
             return [
                 'category' => CategoryFactory::random(), // or use array_rand if not using Foundry references
                 'tags' => TagFactory::randomRange(1, 3), // 1–3 random tags
